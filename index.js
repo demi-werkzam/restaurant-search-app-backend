@@ -7,6 +7,7 @@ const restaurantRouter = require("./routers/restaurants");
 const likeRouter = require("./routers/likes");
 const userRouter = require("./routers/user");
 const rsvpRouter = require("./routers/rsvp");
+const userRsvpRouter = require("./routers/userRsvp");
 const authMiddleWare = require("./auth/middleware");
 
 const app = express();
@@ -159,6 +160,7 @@ app.use("/restaurants", restaurantRouter);
 app.use("/rsvp", rsvpRouter);
 app.use("/likes", likeRouter);
 app.use("/users", userRouter);
+app.use("/userrsvp", userRsvpRouter);
 
 // Listen for connections on specified port (default is port 4000)
 

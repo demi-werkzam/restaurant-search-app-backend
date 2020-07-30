@@ -45,10 +45,9 @@ Default config is setup for usage with an ElephantSQL database instance, you nee
     "url": "YOUR_ELEPHANTSQL_URL_HERE",
     "dialect": "postgres",
     "operatorsAliases": "0"
-  },
+  }
 }
 ```
-
 
 If planning to use this template with a docker database the config object should be changed to:
 
@@ -67,7 +66,6 @@ If planning to use this template with a docker database the config object should
 ```
 
 And you must revert the changes on this line in models/index.js: https://github.com/Codaisseur/express-template/commit/ada7711c8b19c8f240bc61f94743213efe4a77d2#diff-18c449caa39363f82bacb4f7489e7783L15
-
 
 6. Create database, run migrations & seed data
 
@@ -111,10 +109,10 @@ npm start
 
 To demo making request to this server, some small script are included that make requests using `axios`
 
-The scripts can be found in [/sampleRequests](./sampleRequests)
+The scripts can be found in [/sampleRsvps](./sampleRsvps)
 
 1. Make sure to follow the the setup in this readme first
-2. cd sampleRequests
+2. cd sampleRsvps
 3. Run example requests
 
 ```
@@ -130,7 +128,7 @@ node authorizedPost.js
 
 To demo making request to this server, bash commands are included that make requests using `httpie`
 
-They can found in [./sampleRequests/httpie.md](./sampleRequests/httpie.md)
+They can found in [./sampleRsvps/httpie.md](./sampleRsvps/httpie.md)
 
 ## History of this project
 
