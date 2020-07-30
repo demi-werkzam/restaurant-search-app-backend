@@ -11,14 +11,6 @@ router.get("/", async (req, res, next) => {
     const restaurant = await Restaurant.findAll({
       include: [
         {
-          model: Visit,
-          include: [
-            {
-              model: Like,
-            },
-          ],
-        },
-        {
           model: User,
         },
       ],
