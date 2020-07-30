@@ -6,6 +6,7 @@ const authRouter = require("./routers/auth");
 const restaurantRouter = require("./routers/restaurants");
 const likeRouter = require("./routers/likes");
 const userRouter = require("./routers/user");
+const rsvpRouter = require("./routers/rsvp");
 const authMiddleWare = require("./auth/middleware");
 
 const app = express();
@@ -155,6 +156,7 @@ app.post("/authorized_post_request", authMiddleWare, (req, res) => {
 
 app.use("/", authRouter);
 app.use("/restaurants", restaurantRouter);
+app.use("/rsvp", rsvpRouter);
 app.use("/likes", likeRouter);
 app.use("/users", userRouter);
 
