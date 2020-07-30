@@ -1,4 +1,5 @@
-{
+require("dotenv").config();
+module.exports = {
   "development": {
     "url": "YOUR_ELEPHANTSQL_URL_HERE",
     "dialect": "postgres",
