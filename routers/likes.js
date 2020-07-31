@@ -10,15 +10,15 @@ router.post("/:userId/:restaurantId", async (req, res, next) => {
   const { like_date } = req.body;
   const { userId, restaurantId } = request.params;
   if (req.user.id !== userId) {
-    return res.status(300).send("unautherized user");
+    return res.status(401).send("unautherized user");
   }
   if (!restaurantId) {
-    return res.status(300).send("no restaurant send in body");
+    return res.status(400).send("no restaurant send in body");
   }
   const user = await User.findOne({
     where: { userId },
   });
-  const restaurant = await Restaurant.findone({
+  const restaurant = await Restaurant.findOne({
     where: { restaurantId },
   });
   try {
@@ -38,12 +38,11 @@ router.get("/:userId"),
   async (req, res, next) => {
     const { userId } = request.params;
     if (req.user.id !== userId) {
-      return res.status(300).send("unautherized user");
+      return res.status(401).send("unautherized user");
     }
     try {
       const likes = await Like.findAll({
-        where: { User },
-        where: { Restaurant },
+        where: { userId },
       });
       if (!likes) {
         res.status(404).send("Page not found");
