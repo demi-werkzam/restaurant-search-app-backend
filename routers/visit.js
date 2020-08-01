@@ -3,12 +3,14 @@ const Restaurant = require("../models").restaurant;
 const Visit = require("../models").visit;
 const Like = require("../models").like;
 const User = require("../models").user;
+const authMiddleware = require("../auth/middleware");
 
 const router = new Router();
 
 router.post("/:userId/:restaurantId", async (req, res, next) => {
   const { userId, restaurantId } = req.params;
   const { token } = req.body;
+  console.log(123, token);
   if (!restaurantId) {
     return res.status(400).send("no restaurant send in body");
   }
@@ -19,12 +21,12 @@ router.post("/:userId/:restaurantId", async (req, res, next) => {
     where: { id: restaurantId },
   });
   try {
-    const newLike = await Like.create({
+    const newVisit = await Visit.create({
       userId: user.id,
       restaurantId: restaurant.id,
     });
-    console.log(123, newLike);
-    res.status(201).json({ ...newLike.dataValues });
+    console.log(123, newVisit);
+    res.status(201).json({ ...newVisit.dataValues });
   } catch (error) {
     console.log(error);
     next(e);
@@ -37,13 +39,13 @@ router.get("/:userId", async (req, res, next) => {
     return response.status(400).send({ message: "userId is not passed" });
   }
   try {
-    const likes = await Like.findAll({
+    const visits = await Visit.findAll({
       where: { userId },
     });
-    if (!likes) {
+    if (!visits) {
       res.status(404).send("Page not found");
     } else {
-      res.status(200).send(likes);
+      res.status(200).send(visits);
     }
   } catch (error) {
     console.log(error);
@@ -51,11 +53,11 @@ router.get("/:userId", async (req, res, next) => {
   }
 });
 
-router.delete("/:userId", async (req, res, next) => {
-  const { userId } = req.params;
+router.delete("/:userId/restaurantId", async (req, res, next) => {
+  const { userId, restaurantId } = req.params;
   try {
-    await Like.destroy({ where: { userId }, where: { restaurantId } });
-    res.status(201).send("Like deleted");
+    await Visit.destroy({ where: { userId } });
+    res.status(201).send("Visit deleted");
   } catch (e) {
     next(e);
   }

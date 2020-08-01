@@ -1,4 +1,5 @@
 const { Router } = require("express");
+const authMiddleware = require("../auth/middleware");
 const Restaurant = require("../models").restaurant;
 const Visit = require("../models").visit;
 const Like = require("../models").like;
@@ -26,13 +27,41 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-router.post(":userId", async (req, res) => {
-  const userId = req.params;
-  if (req.user.id === !userId) {
-    return res.status(401).send("unautherized user");
+router.get("/:userId", async (req, res, next) => {
+  const { userId } = req.params;
+  if (!userId) {
+    return response
+      .status(400)
+      .send({ message: "userId is not passed in the body" });
   }
-  const { name, address, webiste, instagram, latitude, longitude } = req.body;
-  if ((!name, !address, !webiste, !instagram, !latitude, !longitude)) {
+  try {
+    const restaurant = await Restaurant.findAll({
+      where: { userId: userId },
+    });
+    if (!restaurant) {
+      res.status(404).send("Page not found");
+    } else {
+      res.status(200).send(restaurant);
+    }
+  } catch (e) {
+    console.log(e);
+    next(e);
+  }
+});
+
+router.post("/:userId", async (req, res) => {
+  const { userId } = req.params;
+  const { name, address, website, instagram, latitude, longitude } = req.body;
+  console.log("What is in the body?", req.body);
+  if (
+    !name ||
+    !address ||
+    !website ||
+    !instagram ||
+    !latitude ||
+    !longitude ||
+    !userId
+  ) {
     return res
       .status(400)
       .send(
@@ -43,10 +72,11 @@ router.post(":userId", async (req, res) => {
     const newRestaurant = Restaurant.create({
       name,
       address,
-      webiste,
+      website,
       instagram,
       latitude,
       longitude,
+      userId,
     });
 
     res.status(201).json({ ...newRestaurant.dataValues });

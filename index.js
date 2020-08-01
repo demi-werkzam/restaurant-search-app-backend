@@ -8,6 +8,7 @@ const likeRouter = require("./routers/likes");
 const userRouter = require("./routers/user");
 const rsvpRouter = require("./routers/rsvp");
 const userRsvpRouter = require("./routers/userRsvp");
+const visitRouter = require("./routers/visit");
 const authMiddleWare = require("./auth/middleware");
 
 const app = express();
@@ -53,7 +54,7 @@ app.use(loggerMiddleWare("dev"));
 
 const bodyParserMiddleWare = express.json();
 app.use(bodyParserMiddleWare);
-
+// app.use()
 /**
  *
  * cors middleware:
@@ -161,6 +162,7 @@ app.use("/rsvp", rsvpRouter);
 app.use("/likes", likeRouter);
 app.use("/users", userRouter);
 app.use("/userrsvp", userRsvpRouter);
+app.use("/visits", visitRouter);
 
 // Listen for connections on specified port (default is port 4000)
 
