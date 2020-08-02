@@ -3,6 +3,12 @@ const loggerMiddleWare = require("morgan");
 const corsMiddleWare = require("cors");
 const { PORT } = require("./config/constants");
 const authRouter = require("./routers/auth");
+const restaurantRouter = require("./routers/restaurants");
+const likeRouter = require("./routers/likes");
+const userRouter = require("./routers/user");
+const rsvpRouter = require("./routers/rsvp");
+const userRsvpRouter = require("./routers/userRsvp");
+const visitRouter = require("./routers/visit");
 const authMiddleWare = require("./auth/middleware");
 
 const app = express();
@@ -48,7 +54,7 @@ app.use(loggerMiddleWare("dev"));
 
 const bodyParserMiddleWare = express.json();
 app.use(bodyParserMiddleWare);
-
+// app.use()
 /**
  *
  * cors middleware:
@@ -151,6 +157,12 @@ app.post("/authorized_post_request", authMiddleWare, (req, res) => {
 });
 
 app.use("/", authRouter);
+app.use("/restaurants", restaurantRouter);
+app.use("/rsvp", rsvpRouter);
+app.use("/likes", likeRouter);
+app.use("/users", userRouter);
+app.use("/userrsvp", userRsvpRouter);
+app.use("/visits", visitRouter);
 
 // Listen for connections on specified port (default is port 4000)
 
