@@ -55,7 +55,7 @@ router.delete("/:userId/:restaurantId", async (req, res, next) => {
   const { userId, restaurantId } = req.params;
   try {
     await Like.destroy({ where: { userId, restaurantId } });
-    res.status(201).send("Like deleted");
+    res.status(201).send("Visit deleted");
   } catch (error) {
     next(error);
   }
