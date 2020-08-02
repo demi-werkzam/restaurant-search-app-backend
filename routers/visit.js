@@ -29,7 +29,7 @@ router.post("/:userId/:restaurantId", async (req, res, next) => {
     res.status(201).json({ ...newVisit.dataValues });
   } catch (error) {
     console.log(error);
-    next(e);
+    next(error);
   }
 });
 
@@ -49,7 +49,7 @@ router.get("/:userId", async (req, res, next) => {
     }
   } catch (error) {
     console.log(error);
-    next(e);
+    next(error);
   }
 });
 
@@ -58,8 +58,8 @@ router.delete("/:userId/:restaurantId", async (req, res, next) => {
   try {
     await Visit.destroy({ where: { userId, restaurantId } });
     res.status(201).send("Visit deleted");
-  } catch (e) {
-    next(e);
+  } catch (error) {
+    next(error);
   }
 });
 

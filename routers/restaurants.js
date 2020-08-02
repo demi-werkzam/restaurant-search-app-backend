@@ -23,7 +23,7 @@ router.get("/", async (req, res, next) => {
     }
   } catch (error) {
     console.log(error);
-    next(e);
+    next(error);
   }
 });
 
@@ -43,9 +43,9 @@ router.get("/:userId", async (req, res, next) => {
     } else {
       res.status(200).send(restaurant);
     }
-  } catch (e) {
-    console.log(e);
-    next(e);
+  } catch (error) {
+    console.log(error);
+    next(error);
   }
 });
 

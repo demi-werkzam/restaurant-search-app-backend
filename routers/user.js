@@ -21,8 +21,8 @@ router.get("/:email", async (request, response, next) => {
     } else { */
     response.send(user);
     // }
-  } catch (e) {
-    next(e);
+  } catch (error) {
+    next(error);
   }
 });
 

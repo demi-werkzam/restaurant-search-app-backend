@@ -20,8 +20,8 @@ router.get("/:userId", authMiddleware, async (request, response, next) => {
     } else {
       response.send(requests);
     }
-  } catch (e) {
-    next(e);
+  } catch (error) {
+    next(error);
   }
 });
 
@@ -50,8 +50,8 @@ router.post("/:userId", async (request, response, next) => {
 
       response.json(rsvp);
     }
-  } catch (e) {
-    next(e);
+  } catch (error) {
+    next(error);
   }
 });
 
