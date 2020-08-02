@@ -9,6 +9,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       rsvp.belongsTo(models.restaurant);
+      rsvp.belongsToMany(models.user, {
+        through: "userrsvp",
+        forienkey: "rsvpId",
+      });
     }
   }
   rsvp.init(
