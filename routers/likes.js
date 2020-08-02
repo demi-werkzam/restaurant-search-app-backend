@@ -51,10 +51,10 @@ router.get("/:userId", async (req, res, next) => {
   }
 });
 
-router.delete("/:userId", async (req, res, next) => {
-  const { userId } = req.params;
+router.delete("/:userId/:restaurantId", async (req, res, next) => {
+  const { userId, restaurantId } = req.params;
   try {
-    await Like.destroy({ where: { userId }, where: { restaurantId } });
+    await Like.destroy({ where: { userId, restaurantId } });
     res.status(201).send("Like deleted");
   } catch (e) {
     next(e);

@@ -53,7 +53,7 @@ router.get("/:userId", async (req, res, next) => {
   }
 });
 
-router.delete("/:userId/restaurantId", async (req, res, next) => {
+router.delete("/:userId/:restaurantId", async (req, res, next) => {
   const { userId, restaurantId } = req.params;
   try {
     await Visit.destroy({ where: { userId, restaurantId } });
