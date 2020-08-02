@@ -22,8 +22,8 @@ router.post("/:userId/:restaurantId", async (req, res, next) => {
   });
   try {
     const newVisit = await Visit.create({
-      userId: user.id,
-      restaurantId: restaurant.id,
+      userId: userId,
+      restaurantId: restaurantId,
     });
     console.log(123, newVisit);
     res.status(201).json({ ...newVisit.dataValues });
