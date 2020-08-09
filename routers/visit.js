@@ -41,6 +41,7 @@ router.get("/:userId", async (req, res, next) => {
   try {
     const visits = await Visit.findAll({
       where: { userId },
+      include: [{ model: Restaurant }],
     });
     if (!visits) {
       res.status(404).send("Page not found");

@@ -39,6 +39,7 @@ router.get("/:userId", async (req, res, next) => {
   try {
     const likes = await Like.findAll({
       where: { userId },
+      include: [{ model: Restaurant }],
     });
     if (!likes) {
       res.status(404).send("Page not found");
@@ -55,7 +56,7 @@ router.delete("/:userId/:restaurantId", async (req, res, next) => {
   const { userId, restaurantId } = req.params;
   try {
     await Like.destroy({ where: { userId, restaurantId } });
-    res.status(201).send("Visit deleted");
+    res.status(201).send("Like deleted");
   } catch (error) {
     next(error);
   }
