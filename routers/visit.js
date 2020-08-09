@@ -22,14 +22,14 @@ router.post("/:userId/:restaurantId", async (req, res, next) => {
   });
   try {
     const newVisit = await Visit.create({
-      userId: user.id,
-      restaurantId: restaurant.id,
+      userId: userId,
+      restaurantId: restaurantId,
     });
     console.log(123, newVisit);
     res.status(201).json({ ...newVisit.dataValues });
   } catch (error) {
     console.log(error);
-    next(e);
+    next(error);
   }
 });
 
@@ -41,6 +41,7 @@ router.get("/:userId", async (req, res, next) => {
   try {
     const visits = await Visit.findAll({
       where: { userId },
+      include: [{ model: Restaurant }],
     });
     if (!visits) {
       res.status(404).send("Page not found");
@@ -49,17 +50,17 @@ router.get("/:userId", async (req, res, next) => {
     }
   } catch (error) {
     console.log(error);
-    next(e);
+    next(error);
   }
 });
 
-router.delete("/:userId/restaurantId", async (req, res, next) => {
+router.delete("/:userId/:restaurantId", async (req, res, next) => {
   const { userId, restaurantId } = req.params;
   try {
-    await Visit.destroy({ where: { userId } });
+    await Visit.destroy({ where: { userId, restaurantId } });
     res.status(201).send("Visit deleted");
-  } catch (e) {
-    next(e);
+  } catch (error) {
+    next(error);
   }
 });
 

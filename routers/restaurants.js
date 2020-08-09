@@ -23,7 +23,7 @@ router.get("/", async (req, res, next) => {
     }
   } catch (error) {
     console.log(error);
-    next(e);
+    next(error);
   }
 });
 
@@ -43,25 +43,17 @@ router.get("/:userId", async (req, res, next) => {
     } else {
       res.status(200).send(restaurant);
     }
-  } catch (e) {
-    console.log(e);
-    next(e);
+  } catch (error) {
+    console.log(error);
+    next(error);
   }
 });
 
 router.post("/:userId", async (req, res) => {
   const { userId } = req.params;
-  const { name, address, website, instagram, latitude, longitude } = req.body;
+  const { name, address, website, instagram, lat, lon } = req.body;
   console.log("What is in the body?", req.body);
-  if (
-    !name ||
-    !address ||
-    !website ||
-    !instagram ||
-    !latitude ||
-    !longitude ||
-    !userId
-  ) {
+  if (!name || !address || !website || !instagram || !lat || !lon || !userId) {
     return res
       .status(400)
       .send(
@@ -74,8 +66,8 @@ router.post("/:userId", async (req, res) => {
       address,
       website,
       instagram,
-      latitude,
-      longitude,
+      latitude: lat,
+      longitude: lon,
       userId,
     });
 

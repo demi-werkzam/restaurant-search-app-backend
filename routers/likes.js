@@ -39,6 +39,7 @@ router.get("/:userId", async (req, res, next) => {
   try {
     const likes = await Like.findAll({
       where: { userId },
+      include: [{ model: Restaurant }],
     });
     if (!likes) {
       res.status(404).send("Page not found");
@@ -47,17 +48,17 @@ router.get("/:userId", async (req, res, next) => {
     }
   } catch (error) {
     console.log(error);
-    next(e);
+    next(error);
   }
 });
 
-router.delete("/:userId", async (req, res, next) => {
-  const { userId } = req.params;
+router.delete("/:userId/:restaurantId", async (req, res, next) => {
+  const { userId, restaurantId } = req.params;
   try {
-    await Like.destroy({ where: { userId }, where: { restaurantId } });
+    await Like.destroy({ where: { userId, restaurantId } });
     res.status(201).send("Like deleted");
-  } catch (e) {
-    next(e);
+  } catch (error) {
+    next(error);
   }
 });
 

@@ -20,8 +20,8 @@ router.post("/", authMiddleware, async (request, response, next) => {
       });
       response.json(newRsvp);
     }
-  } catch (e) {
-    next(e);
+  } catch (error) {
+    next(error);
   }
 });
 
@@ -40,8 +40,8 @@ router.get("/:rsvpId", async (request, response, next) => {
     } else {
       response.send(rsvp);
     }
-  } catch (e) {
-    next(e);
+  } catch (error) {
+    next(error);
   }
 });
 
